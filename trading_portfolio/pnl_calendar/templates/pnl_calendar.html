@@ -1,5 +1,12 @@
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
+
+    {% if form.errors %}
+    <div style="color: red;">
+        {{ form.errors }}
+    </div>
+    {% endif %}
+
     <input type="submit" value="Submit">
 </form>
