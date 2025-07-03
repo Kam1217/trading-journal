@@ -10,7 +10,11 @@ from .forms import UploadForm
 class CsvUploadTestCase(TestCase):
     #Test file uploads and saves to the correct folder
     def test_csv_uploads_to_correct_folder(self):
-        file_content = b"header1,header2\nvalue1,value2"
+        file_content = (
+            "Date/Time,Gross P/L,Fee,Net P/L,Trade ID,Other Column\n"
+            "01/01/2023 10:00:00 +0000,100,5.00,95.00,TRADE123,Extra\n"
+            "02/01/2023 11:00:00 +0000,-50,2.00,-52.00,TRADE456,Another"
+        ).encode('utf-8')
         uploaded_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
         expected_file_path = os.path.join("pnl_calendar", "trades_csv", "test.csv")
         handle_upload_csv(uploaded_file)
@@ -21,7 +25,11 @@ class CsvUploadTestCase(TestCase):
 
     #Test for POST request
     def test_csv_file_post_request(self):
-        file_content = b"header1,header2\nvalue1,value2"
+        file_content = (
+            "Date/Time,Gross P/L,Fee,Net P/L,Trade ID,Other Column\n"
+            "01/01/2023 10:00:00 +0000,100,5.00,95.00,TRADE123,Extra\n"
+            "02/01/2023 11:00:00 +0000,-50,2.00,-52.00,TRADE456,Another"
+        ).encode('utf-8')
         uploaded_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
         response = self.client.post(
             reverse("pnl_calendar"),
@@ -40,8 +48,12 @@ class CsvUploadTestCase(TestCase):
    
     #Test csv file does not throw an error
     def test_csv_upload_succeds(self):
-        csv_content = b"name,age,city\nJohn,25,NYC\nJane,30,LA"
-        csv_file = SimpleUploadedFile("test.csv", csv_content, content_type="text/csv")
+        file_content = (
+            "Date/Time,Gross P/L,Fee,Net P/L,Trade ID,Other Column\n"
+            "01/01/2023 10:00:00 +0000,100.00,5.00,95.00,TRADE123,Extra\n"
+            "02/01/2023 11:00:00 +0000,-50,2.00,-52.00,TRADE456,Another"
+        ).encode('utf-8')
+        csv_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
         form = UploadForm(files={"csv_file": csv_file})
         self.assertTrue(form.is_valid())
    
