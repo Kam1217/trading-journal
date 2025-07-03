@@ -11,7 +11,7 @@ class CsvUploadTestCase(TestCase):
     #Test file uploads and saves to the correct folder
     def test_csv_uploads_to_correct_folder(self):
         file_content = b"header1,header2\nvalue1,value2"
-        uploaded_file = SimpleUploadedFile('test.csv', file_content, content_type='text/csv')
+        uploaded_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
         expected_file_path = os.path.join("pnl_calendar", "trades_csv", "test.csv")
         handle_upload_csv(uploaded_file)
         self.assertTrue(os.path.exists(expected_file_path))
@@ -22,7 +22,7 @@ class CsvUploadTestCase(TestCase):
     #Test for POST request
     def test_csv_file_post_request(self):
         file_content = b"header1,header2\nvalue1,value2"
-        uploaded_file = SimpleUploadedFile('test.csv', file_content, content_type='text/csv')
+        uploaded_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
         response = self.client.post(
             reverse("pnl_calendar"),
             data = {},
@@ -36,7 +36,7 @@ class CsvUploadTestCase(TestCase):
         txt_file = SimpleUploadedFile("test.txt", txt_content, content_type="text/plain")
         form = UploadForm(files={"csv_file": txt_file})
         self.assertFalse(form.is_valid())
-        self.assertIn('File must be a CSV file', str(form.errors['csv_file']))
+        self.assertIn("File must be a CSV file", str(form.errors["csv_file"]))
    
     #Test csv file does not throw an error
     def test_csv_upload_succeds(self):
@@ -46,3 +46,7 @@ class CsvUploadTestCase(TestCase):
         self.assertTrue(form.is_valid())
    
     #Test no file uploaded 
+    def test_no_file_upload_fails(self):
+        form = UploadForm(files={})
+        self.assertFalse(form.is_valid())
+        self.assertIn("This field is required", str(form.errors["csv_file"]))
