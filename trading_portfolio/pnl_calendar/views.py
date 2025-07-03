@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from .forms import UploadForm
 
 # Create your views here.
 
 def pnl_calendar(request):
-    return HttpResponse("Hello World")
+    context = {}
+    context['form']= UploadForm()
+    return render(request, "pnl_calendar.html", context)
+
