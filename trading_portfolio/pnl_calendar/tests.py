@@ -3,6 +3,7 @@ import os
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from .handle_csv_upload import handle_upload_csv
+from .forms import UploadForm
 
 # Create your tests here.
 
@@ -28,3 +29,20 @@ class CsvUploadTestCase(TestCase):
             FILES = {"csv_file": uploaded_file},
         )
         self.assertEqual(response.status_code, 200)
+
+    #Test non csv files throw an error
+    def test_non_csv_upload_fails(self):
+        txt_content = b"This is not a CSV file"
+        txt_file = SimpleUploadedFile("test.txt", txt_content, content_type="text/plain")
+        form = UploadForm(files={"csv_file": txt_file})
+        self.assertFalse(form.is_valid())
+        self.assertIn('File must be a CSV file', str(form.errors['csv_file']))
+   
+    #Test csv file does not throw an error
+    def test_csv_upload_succeds(self):
+        csv_content = b"name,age,city\nJohn,25,NYC\nJane,30,LA"
+        csv_file = SimpleUploadedFile("test.csv", csv_content, content_type="text/csv")
+        form = UploadForm(files={"csv_file": csv_file})
+        self.assertTrue(form.is_valid())
+   
+    #Test no file uploaded 
