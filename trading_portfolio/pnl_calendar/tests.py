@@ -18,6 +18,7 @@ class CsvUploadTestCase(TestCase):
         if os.path.exists(expected_file_path):
             os.remove(expected_file_path)
 
+    #Test for POST request
     def test_csv_file_post_request(self):
         file_content = b"header1,header2\nvalue1,value2"
         uploaded_file = SimpleUploadedFile('test.csv', file_content, content_type='text/csv')
