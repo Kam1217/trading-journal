@@ -24,12 +24,12 @@ def handle_upload_csv(f):
 
         #Filter each row to desired headers
         for row in csv_file:
-            filtered_row = {desired_keys[key] for key in desired_keys.keys() if key in row}
+            filtered_row = {desired_keys[key]: row[key] for key in desired_keys.keys() if key in row} 
 
             #Convert date to correct model format for Trades model
             date_obj = datetime.strptime(filtered_row["trade_date"], "%d/%m/%Y %H:%M:%S %z")
             filtered_row["trade_date"] = date_obj.strftime("%Y-%m-%d %H:%M:%S%z")
-
+            
             #Save to data to Trades model
             trades = Trades(**filtered_row)
             trades.save()
