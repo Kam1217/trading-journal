@@ -8,7 +8,7 @@ def pnl_calendar(request):
     context = {}
     if request.POST:
         form = UploadForm(request.POST, request.FILES)
-        if form.is_valid:
+        if form.is_valid(): 
             handle_upload_csv(request.FILES["csv_file"])
     else:
         form = UploadForm()
