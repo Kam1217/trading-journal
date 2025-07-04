@@ -16,8 +16,13 @@
     <li>
         <h3>{{ key }}: {{ value }}</h3>
     </li>
-    {%endfor%}
-    {%for item in calendar_pnl%}
-    <h2>{{item}}</h2>
-    {%endfor%}
+    <li>{%endfor%}
+        {%for item in calendar_daily_pnl%}
+        <h2>{{item}}</h2>
+        {%endfor%}
+    </li>
+    <li>{%for item in calendar_weekly_pnl%}
+        <h1>{{item}}</h1>
+        {%endfor%}
+    </li>
 </ul>

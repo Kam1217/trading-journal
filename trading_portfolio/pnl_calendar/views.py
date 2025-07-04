@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from .forms import UploadForm
 from .handle_csv_upload import handle_upload_csv
-from .pnl_calculations import calendar_pnl, overview_pnl
+from .pnl_calculations import calendar_daily_pnl, overview_pnl, calendar_weekly_pnl
 
 # Create your views here.
 
 def pnl_calendar(request):
     context = {
-        "calendar_pnl": calendar_pnl(),
-        "overview_pnl": overview_pnl()
+        "overview_pnl": overview_pnl(),
+        "calendar_daily_pnl": calendar_daily_pnl(),
+        "calendar_weekly_pnl" : calendar_weekly_pnl(),
         }
     if request.POST:
         form = UploadForm(request.POST, request.FILES)
