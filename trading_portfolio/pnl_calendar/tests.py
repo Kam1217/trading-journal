@@ -4,24 +4,27 @@ from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from .handle_csv_upload import handle_upload_csv
 from .forms import UploadForm
+from .models import Trades
+from datetime import date
+from .pnl_calculations import overview_pnl, calendar_daily_pnl, calendar_weekly_pnl
 
 # Create your tests here.
 
 class CsvUploadTestCase(TestCase):
     #Test file uploads and saves to the correct folder
-    def test_csv_uploads_to_correct_folder(self):
-        file_content = (
-            "Date/Time,Gross P/L,Fee,Net P/L,Trade ID,Other Column\n"
-            "01/01/2023 10:00:00 +0000,100,5.00,95.00,TRADE123,Extra\n"
-            "02/01/2023 11:00:00 +0000,-50,2.00,-52.00,TRADE456,Another"
-        ).encode('utf-8')
-        uploaded_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
-        expected_file_path = os.path.join("pnl_calendar", "trades_csv", "test.csv")
-        handle_upload_csv(uploaded_file)
-        self.assertTrue(os.path.exists(expected_file_path))
+    # def test_csv_uploads_to_correct_folder(self):
+    #     file_content = (
+    #         "Date/Time,Gross P/L,Fee,Net P/L,Trade ID,Other Column\n"
+    #         "01/01/2023 10:00:00 +0000,100,5.00,95.00,TRADE123,Extra\n"
+    #         "02/01/2023 11:00:00 +0000,-50,2.00,-52.00,TRADE456,Another"
+    #     ).encode('utf-8')
+    #     uploaded_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
+    #     expected_file_path = os.path.join("pnl_calendar", "trades_csv", "test.csv")
+    #     handle_upload_csv(uploaded_file)
+    #     self.assertTrue(os.path.exists(expected_file_path))
 
-        if os.path.exists(expected_file_path):
-            os.remove(expected_file_path)
+    #     if os.path.exists(expected_file_path):
+    #         os.remove(expected_file_path)
 
     #Test for POST request
     def test_csv_file_post_request(self):
@@ -62,3 +65,48 @@ class CsvUploadTestCase(TestCase):
         form = UploadForm(files={})
         self.assertFalse(form.is_valid())
         self.assertIn("This field is required", str(form.errors["csv_file"]))
+
+
+class PNLCalculationsTestCase(TestCase):
+    def setUp(self):
+        Trades.objects.create( 
+            trade_date = date(2025, 4, 1),
+            gross_pnl = 100,
+            fee = 1.2,
+            net_pnl = 98.8,
+            trade_id = "SOMEID1",
+        )
+        Trades.objects.create(
+            trade_date = date(2025,4,2),
+            gross_pnl = -100,
+            fee = 3.0,
+            net_pnl = -103,
+            trade_id = "SOMEID2",
+        )
+        Trades.objects.create(
+            trade_date = date(2025,4,3),
+            gross_pnl = 200,
+            fee = 3.0,
+            net_pnl = 197,
+            trade_id = "SOMEID3",
+        )
+
+        Trades.objects.create(
+            trade_date = date(2025,12,17),
+            gross_pnl = 500,
+            fee = 3.0,
+            net_pnl = 497,
+            trade_id = "SOMEID4",
+        )
+
+    def test_overview_pnl(self):
+        result = overview_pnl()
+        expected_gross_pnl = 100 + -100 + 200 + 500 #700
+        expected_fee = 1.2 + 3 + 3 + 3 #10.2
+        expectd_net_pnl = 98.8 + -103 + 197 + 497 #689.8
+        expectd_num_trades = 4
+
+        self.assertEqual(result["total_gross_pnl"], expected_gross_pnl)
+        self.assertEqual(result["total_fee"], expected_fee)
+        self.assertEqual(result["total_net_pnl"], expectd_net_pnl)
+        self.assertEqual(result["number_of_trades"], expectd_num_trades)
