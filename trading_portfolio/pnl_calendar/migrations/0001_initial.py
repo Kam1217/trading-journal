@@ -14,12 +14,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Trades',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                # ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('trade_date', models.DateTimeField()),
                 ('gross_pnl', models.IntegerField()),
                 ('fee', models.FloatField()),
                 ('net_pnl', models.FloatField()),
-                ('trade_id', models.CharField()),
+                ('trade_id', models.CharField(primary_key=True)),
             ],
         ),
     ]
