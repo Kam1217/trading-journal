@@ -22,19 +22,21 @@ def handle_upload_csv(f):
     with open(f"pnl_calendar/trades_csv/{unique_csv_name}", mode= "r") as file:
         csv_file = csv.DictReader(file)
 
+        #Raise error if required keys are missing in the CSV file 
+        required_fields = desired_keys.keys()
+        for field in required_fields:
+            if field not in csv_file.fieldnames:
+                raise ValueError(f"Missing required header in CSV row: {field}")
+
         #Filter each row to desired headers
         for row in csv_file:
             filtered_row = {desired_keys[key]: row[key] for key in desired_keys.keys() if key in row} 
-            required_fields = desired_keys.values()
-
-            #Raise error if required keys are missing in the CSV file
-            for field in required_fields:
-                if field not in filtered_row:
-                    raise ValueError(f"Missing required header in CSV row: {field}. Rows: {row}")
 
             #Convert date to correct model format for Trades model
             date_obj = datetime.strptime(filtered_row["trade_date"], "%d/%m/%Y %H:%M:%S %z")
             filtered_row["trade_date"] = date_obj.strftime("%Y-%m-%d %H:%M:%S%z")
+
+            #Convert gross pnl to float instead of integer
             
             #Save to data to Trades model
             trades = Trades(**filtered_row)
