@@ -110,3 +110,31 @@ class PNLCalculationsTestCase(TestCase):
         self.assertEqual(result["total_fee"], expected_fee)
         self.assertEqual(result["total_net_pnl"], expectd_net_pnl)
         self.assertEqual(result["number_of_trades"], expectd_num_trades)
+
+    def test_daily_pnl(self):
+        result = calendar_daily_pnl()
+        print(f"\nDEBUG: calendar_pnl() returned: {result}")
+        
+        april_first_data = next((item for item in result if item["day"] == date(2025, 4, 1)), None)
+        self.assertIsNotNone(april_first_data)
+        self.assertEqual(april_first_data["total_fee"], 1.2)
+        self.assertEqual(april_first_data["total_net_pnl"], 98.8)
+        self.assertEqual(april_first_data["number_of_trades"], 1)
+
+        april_second_data = next((item for item in result if item["day"] == date(2025,4,2)), None)
+        self.assertIsNotNone(april_second_data)
+        self.assertEqual(april_second_data["total_fee"], 3.0)
+        self.assertEqual(april_second_data["total_net_pnl"], -103)
+        self.assertEqual(april_second_data["number_of_trades"], 1)
+
+        april_third_data = next((item for item in result if item["day"] == date(2025,4,3)), None)
+        self.assertIsNotNone(april_third_data)
+        self.assertEqual(april_third_data["total_fee"], 3.0)
+        self.assertEqual(april_third_data["total_net_pnl"], 197)
+        self.assertEqual(april_third_data["number_of_trades"], 1)
+
+        december_seventeenth_data = next((item for item in result if item["day"] == date(2025,12,17)), None)
+        self.assertIsNotNone(december_seventeenth_data)
+        self.assertEqual(december_seventeenth_data["total_fee"], 3.0)
+        self.assertEqual(december_seventeenth_data["total_net_pnl"], 497)
+        self.assertEqual(december_seventeenth_data["number_of_trades"], 1)
