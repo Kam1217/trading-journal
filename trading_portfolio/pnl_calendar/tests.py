@@ -113,7 +113,6 @@ class PNLCalculationsTestCase(TestCase):
 
     def test_daily_pnl(self):
         result = calendar_daily_pnl()
-        print(f"\nDEBUG: calendar_pnl() returned: {result}")
         
         april_first_data = next((item for item in result if item["day"] == date(2025, 4, 1)), None)
         self.assertIsNotNone(april_first_data)
@@ -138,3 +137,21 @@ class PNLCalculationsTestCase(TestCase):
         self.assertEqual(december_seventeenth_data["total_fee"], 3.0)
         self.assertEqual(december_seventeenth_data["total_net_pnl"], 497)
         self.assertEqual(december_seventeenth_data["number_of_trades"], 1)
+
+    def test_weekly_pnl(self):
+        result = calendar_weekly_pnl()
+        print(f"\nDEBUG: weekly_pnl() returned: {result}")
+
+
+        first_week_data = next((item for item in result if item["week"].date() == date(2025, 3, 31)), None)
+        self.assertIsNotNone(first_week_data)
+        self.assertEqual(first_week_data["total_fee"], 1.2 + 3.0 + 3.0)
+        self.assertEqual(first_week_data["total_net_pnl"], 98.8 + -103.0 + 197.0)
+        self.assertEqual(first_week_data["number_of_trades"], 3)
+
+        second_week_data = next((item for item in result if item["week"].date() == date(2025, 12, 15)), None)
+        self.assertIsNotNone(second_week_data)
+        self.assertIsNotNone(second_week_data)
+        self.assertEqual(second_week_data["total_fee"], 3.0)
+        self.assertEqual(second_week_data["total_net_pnl"], 497.0)
+        self.assertEqual(second_week_data["number_of_trades"], 1)
