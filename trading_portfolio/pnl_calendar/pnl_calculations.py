@@ -1,5 +1,5 @@
 from django.db.models import Sum, Count
-from django.db.models.functions import TruncDate
+from django.db.models.functions import TruncDate, TruncWeek
 from .models import Trades
 
 #Function to calculate overview data
@@ -13,10 +13,10 @@ def overview_pnl():
     return (total_pnl)
 
 #Fucntion to calculate individual day data for the calendar
-def calendar_pnl():
+def calendar_daily_pnl():
     daily_pnl = Trades.objects.annotate(
-        date = TruncDate("trade_date")
-    ).values("date").annotate(
+        day = TruncDate("trade_date")
+    ).values("day").annotate(
         total_fee = Sum("fee"),
         total_net_pnl = Sum("net_pnl"),
         number_of_trades = Count("trade_id"),
@@ -24,3 +24,12 @@ def calendar_pnl():
     return list(daily_pnl)
 
 #Function to calculate end of week pnl
+def calendar_weekly_pnl():
+    weekly_pnl = Trades.objects.annotate(
+        week = TruncWeek("trade_date")
+    ).values("week").annotate(
+        total_fee = Sum("fee"),
+        total_net_pnl = Sum("net_pnl"),
+        number_of_trades = Count("trade_id"),
+    )
+    return list(weekly_pnl)
