@@ -25,6 +25,11 @@ def handle_upload_csv(f):
         #Filter each row to desired headers
         for row in csv_file:
             filtered_row = {desired_keys[key]: row[key] for key in desired_keys.keys() if key in row} 
+            required_fields = desired_keys.values()
+
+            for field in required_fields:
+                if field not in filtered_row:
+                    raise ValueError(f"Missing required header in CSV row: {field}. Rows: {row}")
 
             #Convert date to correct model format for Trades model
             date_obj = datetime.strptime(filtered_row["trade_date"], "%d/%m/%Y %H:%M:%S %z")
