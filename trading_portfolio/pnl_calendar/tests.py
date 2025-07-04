@@ -11,20 +11,6 @@ from .pnl_calculations import overview_pnl, calendar_daily_pnl, calendar_weekly_
 # Create your tests here.
 
 class CsvUploadTestCase(TestCase):
-    #Test file uploads and saves to the correct folder
-    # def test_csv_uploads_to_correct_folder(self):
-    #     file_content = (
-    #         "Date/Time,Gross P/L,Fee,Net P/L,Trade ID,Other Column\n"
-    #         "01/01/2023 10:00:00 +0000,100,5.00,95.00,TRADE123,Extra\n"
-    #         "02/01/2023 11:00:00 +0000,-50,2.00,-52.00,TRADE456,Another"
-    #     ).encode('utf-8')
-    #     uploaded_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
-    #     expected_file_path = os.path.join("pnl_calendar", "trades_csv", "test.csv")
-    #     handle_upload_csv(uploaded_file)
-    #     self.assertTrue(os.path.exists(expected_file_path))
-
-    #     if os.path.exists(expected_file_path):
-    #         os.remove(expected_file_path)
 
     #Test for POST request
     def test_csv_file_post_request(self):
