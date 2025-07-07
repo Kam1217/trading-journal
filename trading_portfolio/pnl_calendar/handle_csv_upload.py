@@ -2,7 +2,7 @@ import csv
 from datetime import datetime
 import uuid
 import os
-from .models import Trades
+from .models import Trade
 
 #Upload and save csv file to a folder
 def handle_upload_csv(f):
@@ -16,7 +16,7 @@ def handle_upload_csv(f):
         for chunk in f.chunks():
             destination.write(chunk)
     
-    #Get required csv data for the Trades model
+    #Get required csv data for the Trade model
     desired_keys = {"Date/Time": "trade_date", "Gross P/L": "gross_pnl", "Fee": "fee", "Net P/L": "net_pnl", "Trade ID": "trade_id"}
 
     with open(f"pnl_calendar/trades_csv/{unique_csv_name}", mode= "r") as file:
@@ -32,13 +32,13 @@ def handle_upload_csv(f):
         for row in csv_file:
             filtered_row = {desired_keys[key]: row[key] for key in desired_keys.keys() if key in row} 
 
-            #Convert date to correct model format for Trades model
+            #Convert date to correct model format for Trade model
 
             date_obj = datetime.strptime(filtered_row["trade_date"], "%d/%m/%Y %H:%M:%S %z")
             filtered_row["trade_date"] = date_obj.strftime("%Y-%m-%d %H:%M:%S%z")
 
             #Handle duplicates
-            trade_obj, created = Trades.objects.update_or_create(
+            trade_obj, created = Trade.objects.update_or_create(
                 trade_id = filtered_row["trade_id"],
                 defaults= {
                     "trade_date": filtered_row["trade_date"],

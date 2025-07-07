@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from .handle_csv_upload import handle_upload_csv
 from .forms import UploadForm
-from .models import Trades
+from .models import Trade
 from datetime import date
 from .pnl_calculations import overview_pnl, calendar_daily_pnl, calendar_weekly_pnl
 
@@ -55,21 +55,21 @@ class CsvUploadTestCase(TestCase):
 
 class PNLCalculationsTestCase(TestCase):
     def setUp(self):
-        Trades.objects.create( 
+        Trade.objects.create( 
             trade_date = date(2025, 4, 1),
             gross_pnl = 100,
             fee = 1.2,
             net_pnl = 98.8,
             trade_id = "SOMEID1",
         )
-        Trades.objects.create(
+        Trade.objects.create(
             trade_date = date(2025,4,2),
             gross_pnl = -100,
             fee = 3.0,
             net_pnl = -103,
             trade_id = "SOMEID2",
         )
-        Trades.objects.create(
+        Trade.objects.create(
             trade_date = date(2025,4,3),
             gross_pnl = 200,
             fee = 3.0,
@@ -77,7 +77,7 @@ class PNLCalculationsTestCase(TestCase):
             trade_id = "SOMEID3",
         )
 
-        Trades.objects.create(
+        Trade.objects.create(
             trade_date = date(2025,12,17),
             gross_pnl = 500,
             fee = 3.0,
