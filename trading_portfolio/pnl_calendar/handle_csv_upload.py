@@ -26,7 +26,25 @@ def validate_csv_data(row, row_num, required_fields):
         if not value:
             raise ValueError(f"Missing or empty value for '{field}' in row {row_num}")
         
-    
+    #Validate Gross PNL, Net PNL and Fees are all float numbers
+    try:
+        float(row["Gross P/L"])
+        float(row["Fee"])
+        float(row["Net P/L"])
+    except ValueError:
+         raise ValueError(f"Invalid numeric value in row {row_num}. Gross P/L, Fee, and Net P/L must be numbers")
+
+    #Validate Date format
+    try:
+        pass
+    except ValueError:
+        pass
+
+    #Validate Trade ID is a string
+    try:
+        pass
+    except ValueError:
+        pass
 
 
 def process_csv_to_trades(csv_file_path):
