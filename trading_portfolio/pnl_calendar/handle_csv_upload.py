@@ -41,11 +41,9 @@ def validate_csv_data(row, row_num, required_fields):
         raise ValueError(f"Invalid date format in row {row_num}. Expected format: DD/MM/YYYY")
 
     #Validate Trade ID is a string
-    try:
-        pass
-    except ValueError:
-        pass
-
+    trade_id = row["Trade ID"].strip()
+    if not trade_id:
+        raise ValueError(f"Trade ID cannot be empty in row {row_num}")
 
 def process_csv_to_trades(csv_file_path):
     #Get required csv data for the Trade model
