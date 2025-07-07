@@ -36,9 +36,9 @@ def validate_csv_data(row, row_num, required_fields):
 
     #Validate Date format
     try:
-        pass
+        datetime.strptime(row["Date/Time"], "%d/%m/%Y %H:%M:%S %z")
     except ValueError:
-        pass
+        raise ValueError(f"Invalid date format in row {row_num}. Expected format: DD/MM/YYYY")
 
     #Validate Trade ID is a string
     try:
