@@ -4,18 +4,23 @@ import uuid
 import os
 from .models import Trade
 
-#Upload and save csv file to a folder
-def handle_upload_csv(f):
+def save_uploaded_csv(f):
     #Make a unique name for each file about to me uploaded
     unique_csv_id = uuid.uuid4().hex 
     name, ext = os.path.splitext(f.name)
     unique_csv_name = f"{unique_csv_id}_{name}{ext}"
-    
+    csv_file_path = f"pnl_calendar/trades_csv/{unique_csv_name}"
+
     #Open and save the uploaded csv file to trades_csv folder   
     with open(f"pnl_calendar/trades_csv/{unique_csv_name}", "wb+") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
     
+    return csv_file_path
+
+#Upload and save csv file to a folder
+def handle_upload_csv(f):
+
     #Get required csv data for the Trade model
     desired_keys = {"Date/Time": "trade_date", "Gross P/L": "gross_pnl", "Fee": "fee", "Net P/L": "net_pnl", "Trade ID": "trade_id"}
 
