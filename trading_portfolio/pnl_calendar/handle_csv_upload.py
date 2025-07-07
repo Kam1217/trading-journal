@@ -48,11 +48,18 @@ def handle_upload_csv(f):
                 }
             )
 
+            new_trade_obj_count = 0
+            updated_trade_obj_count = 0
+
             if created:
                 print(f"Successfully added new trade with ID: {trade_obj.trade_id}")
+                new_trade_obj_count += 1
+
             else:
                 print(f"Trade with ID: {trade_obj.trade_id} already exists and has been updated")
-    
+                updated_trade_obj_count += 1
+
+   
     csv_file_path = f"pnl_calendar/trades_csv/{unique_csv_name}"
     os.remove(csv_file_path)
 
