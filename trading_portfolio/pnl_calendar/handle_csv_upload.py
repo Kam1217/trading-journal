@@ -18,6 +18,17 @@ def save_uploaded_csv(f):
     
     return file_path
 
+#Function which checks all rows have valid data
+def validate_csv_data(row, row_num, required_fields):
+    #Missing/ No value
+    for field in required_fields:
+        value = row.get(field, "").strip()
+        if not value:
+            raise ValueError(f"Missing or empty value for '{field}' in row {row_num}")
+        
+    
+
+
 def process_csv_to_trades(csv_file_path):
     #Get required csv data for the Trade model
     desired_keys = {"Date/Time": "trade_date", "Gross P/L": "gross_pnl", "Fee": "fee", "Net P/L": "net_pnl", "Trade ID": "trade_id"}
@@ -57,7 +68,6 @@ def process_csv_to_trades(csv_file_path):
         if created:
             print(f"Successfully added new trade with ID: {trade_obj.trade_id}")
             new_trade_obj_count += 1
-
         else:
             print(f"Trade with ID: {trade_obj.trade_id} already exists and has been updated")
             updated_trade_obj_count += 1
@@ -71,7 +81,6 @@ def handle_upload_csv(f):
     try:
         new_count, updated_count = process_csv_to_trades(csv_file_path)
         print(f"Processing complete: {new_count} new trades, {updated_count} updated trades")
-    
     
     #Remove csv once it is done processing
     finally:
