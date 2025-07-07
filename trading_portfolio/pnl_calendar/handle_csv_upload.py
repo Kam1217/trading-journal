@@ -38,7 +38,7 @@ def handle_upload_csv(f):
             filtered_row["trade_date"] = date_obj.strftime("%Y-%m-%d %H:%M:%S%z")
 
             #Handle duplicates
-            trade_obj, created = Trades.objects.get_or_create(
+            trade_obj, created = Trades.objects.update_or_create(
                 trade_id = filtered_row["trade_id"],
                 defaults= {
                     "trade_date": filtered_row["trade_date"],
