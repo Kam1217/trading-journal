@@ -19,31 +19,43 @@ def save_uploaded_csv(f):
     return file_path
 
 #Function which checks all rows have valid data
-def validate_csv_data(row, row_num, required_fields):
-    #Missing/ No value
+def validate_csv_data(csv_file_path):
+    desired_keys = {"Date/Time": "trade_date", "Gross P/L": "gross_pnl", "Fee": "fee", "Net P/L": "net_pnl", "Trade ID": "trade_id"}
+
+    with open(csv_file_path, mode="r") as file:
+        csv_file = csv.DictReader(file)
+     
+    #Raise error if required keys are missing in the CSV file 
+    required_fields = desired_keys.keys()
     for field in required_fields:
-        value = row.get(field, "").strip()
-        if not value:
-            raise ValueError(f"Missing or empty value for '{field}' in row {row_num}")
+        if field not in csv_file.fieldnames:
+            raise ValueError(f"Missing required header in CSV row: {field}")
+
+    for row_num, row in enumerate(csv_file, start=2):
+        #Missing/ No value
+        for field in required_fields:
+            value = row.get(field, "").strip()
+            if not value:
+                raise ValueError(f"Missing or empty value for '{field}' in row {row_num}")
         
-    #Validate Gross PNL, Net PNL and Fees are all float numbers
-    try:
-        float(row["Gross P/L"])
-        float(row["Fee"])
-        float(row["Net P/L"])
-    except ValueError:
-         raise ValueError(f"Invalid numeric value in row {row_num}. Gross P/L, Fee, and Net P/L must be numbers")
+        #Validate Gross PNL, Net PNL and Fees are all float numbers
+        try:
+            float(row["Gross P/L"])
+            float(row["Fee"])
+            float(row["Net P/L"])
+        except ValueError:
+            raise ValueError(f"Invalid numeric value in row {row_num}. Gross P/L, Fee, and Net P/L must be numbers")
 
-    #Validate Date format
-    try:
-        datetime.strptime(row["Date/Time"], "%d/%m/%Y %H:%M:%S %z")
-    except ValueError:
-        raise ValueError(f"Invalid date format in row {row_num}. Expected format: DD/MM/YYYY")
+        #Validate Date format
+        try:
+            datetime.strptime(row["Date/Time"], "%d/%m/%Y %H:%M:%S %z")
+        except ValueError:
+            raise ValueError(f"Invalid date format in row {row_num}. Expected format: DD/MM/YYYY")
 
-    #Validate Trade ID is a string
-    trade_id = row["Trade ID"].strip()
-    if not trade_id:
-        raise ValueError(f"Trade ID cannot be empty in row {row_num}")
+        #Validate Trade ID is a string
+        trade_id = row["Trade ID"].strip()
+        if not trade_id:
+            raise ValueError(f"Trade ID cannot be empty in row {row_num}")
 
 def process_csv_to_trades(csv_file_path):
     #Get required csv data for the Trade model
@@ -56,16 +68,10 @@ def process_csv_to_trades(csv_file_path):
     with open(csv_file_path, mode= "r") as file:
         csv_file = csv.DictReader(file)
     
-        #Raise error if required keys are missing in the CSV file 
-        required_fields = desired_keys.keys()
-        for field in required_fields:
-            if field not in csv_file.fieldnames:
-                raise ValueError(f"Missing required header in CSV row: {field}")
-        
         #Filter each row to desired headers
         for row in csv_file:
             filtered_row = {desired_keys[key]: row[key] for key in desired_keys.keys() if key in row} 
-
+            
             #Convert date to correct model format for Trade model
             date_obj = datetime.strptime(filtered_row["trade_date"], "%d/%m/%Y %H:%M:%S %z")
             filtered_row["trade_date"] = date_obj.strftime("%Y-%m-%d %H:%M:%S%z")
@@ -82,10 +88,8 @@ def process_csv_to_trades(csv_file_path):
             )
 
         if created:
-            print(f"Successfully added new trade with ID: {trade_obj.trade_id}")
             new_trade_obj_count += 1
         else:
-            print(f"Trade with ID: {trade_obj.trade_id} already exists and has been updated")
             updated_trade_obj_count += 1
 
         return new_trade_obj_count, updated_trade_obj_count
@@ -95,6 +99,7 @@ def handle_upload_csv(f):
     csv_file_path = save_uploaded_csv(f)
 
     try:
+        validate_csv_data(csv_file_path)
         new_count, updated_count = process_csv_to_trades(csv_file_path)
         print(f"Processing complete: {new_count} new trades, {updated_count} updated trades")
     
