@@ -29,30 +29,30 @@ def process_csv_to_trades(csv_file_path):
     with open(csv_file_path, mode= "r") as file:
         csv_file = csv.DictReader(file)
     
-    #Raise error if required keys are missing in the CSV file 
-    required_fields = desired_keys.keys()
-    for field in required_fields:
-        if field not in csv_file.fieldnames:
-            raise ValueError(f"Missing required header in CSV row: {field}")
+        #Raise error if required keys are missing in the CSV file 
+        required_fields = desired_keys.keys()
+        for field in required_fields:
+            if field not in csv_file.fieldnames:
+                raise ValueError(f"Missing required header in CSV row: {field}")
         
-    #Filter each row to desired headers
-    for row in csv_file:
-        filtered_row = {desired_keys[key]: row[key] for key in desired_keys.keys() if key in row} 
+        #Filter each row to desired headers
+        for row in csv_file:
+            filtered_row = {desired_keys[key]: row[key] for key in desired_keys.keys() if key in row} 
 
-        #Convert date to correct model format for Trade model
-        date_obj = datetime.strptime(filtered_row["trade_date"], "%d/%m/%Y %H:%M:%S %z")
-        filtered_row["trade_date"] = date_obj.strftime("%Y-%m-%d %H:%M:%S%z")
+            #Convert date to correct model format for Trade model
+            date_obj = datetime.strptime(filtered_row["trade_date"], "%d/%m/%Y %H:%M:%S %z")
+            filtered_row["trade_date"] = date_obj.strftime("%Y-%m-%d %H:%M:%S%z")
 
-        #Handle duplicates
-        trade_obj, created = Trade.objects.update_or_create(
-            trade_id = filtered_row["trade_id"],
-            defaults={
-                "trade_date": filtered_row["trade_date"],
-                "gross_pnl": filtered_row["gross_pnl"],
-                "fee": filtered_row["fee"],
-                "net_pnl": filtered_row["net_pnl"],
-            }
-        )
+            #Handle duplicates
+            trade_obj, created = Trade.objects.update_or_create(
+                trade_id = filtered_row["trade_id"],
+                defaults={
+                    "trade_date": filtered_row["trade_date"],
+                    "gross_pnl": filtered_row["gross_pnl"],
+                    "fee": filtered_row["fee"],
+                    "net_pnl": filtered_row["net_pnl"],
+                }
+            )
 
         if created:
             print(f"Successfully added new trade with ID: {trade_obj.trade_id}")
@@ -64,9 +64,8 @@ def process_csv_to_trades(csv_file_path):
 
         return new_trade_obj_count, updated_trade_obj_count
 
-#Upload and save csv file to a folder
-def handle_upload_csv(f):
 
+def handle_upload_csv(f):
     csv_file_path = save_uploaded_csv(f)
 
     try:
