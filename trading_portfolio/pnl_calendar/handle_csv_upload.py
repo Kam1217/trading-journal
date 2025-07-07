@@ -11,6 +11,10 @@ def save_uploaded_csv(f):
     unique_csv_name = f"{unique_csv_id}_{name}{ext}"
     file_path = f"pnl_calendar/trades_csv/{unique_csv_name}"
 
+    #Limit file size - if bigger than 2MB fail
+    if f.size > 2 * 1024 * 1024:
+        raise ValueError(f"File too large: {f.size} bytes. Maximum allowed: 2MB")
+
     #Open and save the uploaded csv file to trades_csv folder   
     with open(file_path, "wb+") as destination:
         for chunk in f.chunks():
@@ -24,7 +28,7 @@ def validate_csv_data(csv_file_path):
 
     with open(csv_file_path, mode="r") as file:
         csv_file = csv.DictReader(file)
-     
+
         #Raise error if required keys are missing in the CSV file 
         required_fields = desired_keys.keys()
         for field in required_fields:
