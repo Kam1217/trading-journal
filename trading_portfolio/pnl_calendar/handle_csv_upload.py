@@ -25,37 +25,37 @@ def validate_csv_data(csv_file_path):
     with open(csv_file_path, mode="r") as file:
         csv_file = csv.DictReader(file)
      
-    #Raise error if required keys are missing in the CSV file 
-    required_fields = desired_keys.keys()
-    for field in required_fields:
-        if field not in csv_file.fieldnames:
-            raise ValueError(f"Missing required header in CSV row: {field}")
-
-    for row_num, row in enumerate(csv_file, start=2):
-        #Missing/ No value
+        #Raise error if required keys are missing in the CSV file 
+        required_fields = desired_keys.keys()
         for field in required_fields:
-            value = row.get(field, "").strip()
-            if not value:
-                raise ValueError(f"Missing or empty value for '{field}' in row {row_num}")
+            if field not in csv_file.fieldnames:
+                raise ValueError(f"Missing required header in CSV row: {field}")
+
+        for row_num, row in enumerate(csv_file, start=2):
+            #Missing/ No value
+            for field in required_fields:
+                value = row.get(field, "").strip()
+                if not value:
+                    raise ValueError(f"Missing or empty value for '{field}' in row {row_num}")
         
-        #Validate Gross PNL, Net PNL and Fees are all float numbers
-        try:
-            float(row["Gross P/L"])
-            float(row["Fee"])
-            float(row["Net P/L"])
-        except ValueError:
-            raise ValueError(f"Invalid numeric value in row {row_num}. Gross P/L, Fee, and Net P/L must be numbers")
+            #Validate Gross PNL, Net PNL and Fees are all float numbers
+            try:
+                float(row["Gross P/L"])
+                float(row["Fee"])
+                float(row["Net P/L"])
+            except ValueError:
+                raise ValueError(f"Invalid numeric value in row {row_num}. Gross P/L, Fee, and Net P/L must be numbers")
 
-        #Validate Date format
-        try:
-            datetime.strptime(row["Date/Time"], "%d/%m/%Y %H:%M:%S %z")
-        except ValueError:
-            raise ValueError(f"Invalid date format in row {row_num}. Expected format: DD/MM/YYYY")
+            #Validate Date format
+            try:
+                datetime.strptime(row["Date/Time"], "%d/%m/%Y %H:%M:%S %z")
+            except ValueError:
+                raise ValueError(f"Invalid date format in row {row_num}. Expected format: DD/MM/YYYY")
 
-        #Validate Trade ID is a string
-        trade_id = row["Trade ID"].strip()
-        if not trade_id:
-            raise ValueError(f"Trade ID cannot be empty in row {row_num}")
+            #Validate Trade ID is a string
+            trade_id = row["Trade ID"].strip()
+            if not trade_id:
+                raise ValueError(f"Trade ID cannot be empty in row {row_num}")
 
 def process_csv_to_trades(csv_file_path):
     #Get required csv data for the Trade model
