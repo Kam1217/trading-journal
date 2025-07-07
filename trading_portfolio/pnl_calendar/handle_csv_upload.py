@@ -48,6 +48,7 @@ def handle_upload_csv(f):
                 }
             )
 
+            #Count newly addes trades and updated trades
             new_trade_obj_count = 0
             updated_trade_obj_count = 0
 
@@ -59,7 +60,7 @@ def handle_upload_csv(f):
                 print(f"Trade with ID: {trade_obj.trade_id} already exists and has been updated")
                 updated_trade_obj_count += 1
 
-   
+    #Remove csv once it is done processing
     csv_file_path = f"pnl_calendar/trades_csv/{unique_csv_name}"
     os.remove(csv_file_path)
 
