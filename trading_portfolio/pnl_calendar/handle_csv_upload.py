@@ -51,8 +51,9 @@ def handle_upload_csv(f):
             if created:
                 print(f"Successfully added new trade with ID: {trade_obj.trade_id}")
             else:
-                print(f"Trade with ID: {trade_obj.trade_id} already exists")
+                print(f"Trade with ID: {trade_obj.trade_id} already exists and has been updated")
+    
+    csv_file_path = f"pnl_calendar/trades_csv/{unique_csv_name}"
+    os.remove(csv_file_path)
 
-            #Convert gross pnl to float instead of integer
-            
 
