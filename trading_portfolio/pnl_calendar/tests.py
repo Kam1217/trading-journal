@@ -100,6 +100,19 @@ class CsvUploadTestCase(TestCase):
             handle_upload_csv(csv_file)
 
         self.assertIn("Invalid numeric value in row",str(context.exception))
+    
+    #Test wrong csv format - wrong date format
+    def test_wrong_date_format(self):
+        file_content = (
+            "Date/Time,Gross P/L,Fee,Net P/L,Trade ID\n"
+            "2023/12/13 10:00:00 +0000,100.00,5.00,95.00,TRADE123\n"
+        ).encode("utf-8")
+        csv_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
+
+        with self.assertRaises(ValueError) as context:
+            handle_upload_csv(csv_file)
+
+        self.assertIn("Invalid date format in row",str(context.exception))
 
 class PNLCalculationsTestCase(TestCase):
     def setUp(self):
