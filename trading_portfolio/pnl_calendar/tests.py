@@ -52,6 +52,16 @@ class CsvUploadTestCase(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn("This field is required", str(form.errors["csv_file"]))
 
+    #Test file size 
+    def test_large_file_upload_fail(self):
+        large_content = "Date/Time,Gross P/L,Fee,Net P/L,Trade ID\n" + ("01/01/2023 10:00:00 +0000,100,5.00,95.00,TRADE123\n" * 100000)
+        large_file = SimpleUploadedFile("large.csv", large_content.encode("utf-8"), content_type="text/csv")
+
+        with self.assertRaises(ValueError) as context:
+            handle_upload_csv(large_file)
+        
+        self.assertIn("File too large", str(context.exception))
+
 
 class PNLCalculationsTestCase(TestCase):
     def setUp(self):
@@ -141,3 +151,5 @@ class PNLCalculationsTestCase(TestCase):
         self.assertEqual(second_week_data["total_fee"], 3.0)
         self.assertEqual(second_week_data["total_net_pnl"], 497.0)
         self.assertEqual(second_week_data["number_of_trades"], 1)
+
+     
