@@ -18,7 +18,7 @@ class CsvUploadTestCase(TestCase):
             "Date/Time,Gross P/L,Fee,Net P/L,Trade ID,Other Column\n"
             "01/01/2023 10:00:00 +0000,100,5.00,95.00,TRADE123,Extra\n"
             "02/01/2023 11:00:00 +0000,-50,2.00,-52.00,TRADE456,Another"
-        ).encode('utf-8')
+        ).encode("utf-8")
         uploaded_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
         response = self.client.post(
             reverse("pnl_calendar"),
@@ -62,6 +62,19 @@ class CsvUploadTestCase(TestCase):
         
         self.assertIn("File too large", str(context.exception))
 
+    def test_file_within_size_succeds(self):
+        file_content = (
+            "Date/Time,Gross P/L,Fee,Net P/L,Trade ID\n"
+            "01/01/2023 10:00:00 +0000,100.00,5.00,95.00,TRADE123\n"
+        ).encode("utf-8")
+        csv_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
+
+        try:
+            handle_upload_csv(csv_file)
+        except ValueError as e:
+            if "File too large" in str(e):
+                self.fail("Valid sized file failed to upload")
+    
 
 class PNLCalculationsTestCase(TestCase):
     def setUp(self):
