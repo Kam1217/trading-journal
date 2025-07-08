@@ -38,7 +38,7 @@ def validate_csv_data(csv_file_path):
         for row_num, row in enumerate(csv_file, start=2):
             #Missing/ No value
             for field in required_fields:
-                value = row.get(field, "").strip()
+                value = (row.get(field) or "").strip()
                 if not value:
                     raise ValueError(f"Missing or empty value for '{field}' in row {row_num}")
         
