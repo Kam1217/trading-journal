@@ -87,6 +87,19 @@ class CsvUploadTestCase(TestCase):
             handle_upload_csv(csv_file)
 
         self.assertIn("Missing required header in CSV row", str(context.exception))
+    
+    #Test wrong csv format - invalid numeric value
+    def test_invalid_numeric_value(self):
+        file_content = (
+            "Date/Time,Gross P/L,Fee,Net P/L,Trade ID\n"
+            "01/01/2023 10:00:00 +0000,not_a_number,5.00,95.00,TRADE123\n"
+        ).encode("utf-8")
+        csv_file = SimpleUploadedFile("test.csv", file_content, content_type="text/csv")
+
+        with self.assertRaises(ValueError) as context:
+            handle_upload_csv(csv_file)
+
+        self.assertIn("Invalid numeric value in row",str(context.exception))
 
 class PNLCalculationsTestCase(TestCase):
     def setUp(self):
