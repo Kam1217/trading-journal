@@ -185,7 +185,7 @@ body {
     top: 141px;
     left: 220px;
     right: 0;
-    height: 160px;
+    height: 140px;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -212,3 +212,21 @@ body {
     font-weight: 600;
     margin: 0;
 }
+
+.pnl-calendar-header-container {
+    position: fixed;
+    top: 282px;
+    left: 220px;
+    right: 0;
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid #98B4B7;
+    z-index: 998;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0 10px;
+}
+
