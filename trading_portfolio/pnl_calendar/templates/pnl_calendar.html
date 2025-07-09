@@ -1,4 +1,10 @@
-<form method="POST" enctype="multipart/form-data">
+{% load static %}
+
+<link rel = "stylesheet" href="{%static 'main.css'%}">
+
+
+
+<!-- <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
 
@@ -25,4 +31,4 @@
         <h1>{{item}}</h1>
         {%endfor%}
     </li>
-</ul>
+</ul> -->
