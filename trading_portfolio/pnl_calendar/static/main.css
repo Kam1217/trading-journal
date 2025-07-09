@@ -83,3 +83,29 @@ body {
     background-color: #98B4B7;
     margin: 0 0 20px 0;
 }
+
+.sidebar-menu {
+    padding: 0 20px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 12px 0;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.menu-item .material-symbols-outlined {
+    color: white;
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
