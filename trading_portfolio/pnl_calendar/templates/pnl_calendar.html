@@ -25,9 +25,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="upload-button">UPLOAD</button>
-
         </form>
-
     </header>
 
     <div class="total-headers-stats-container">
@@ -48,16 +46,16 @@
     <!-- Total overview stats -->
     <div class="total-stats-overview-container">
         <div class="stats-item">
-            <span class="total-stats">$1230</span>
+            <span class="total-stats">${{overview_pnl.total_gross_pnl }}</span>
         </div>
         <div class="stats-item">
-            <span class="total-stats">$32.1</span>
+            <span class="total-stats">${{overview_pnl.total_fee}}</span>
         </div>
         <div class="stats-item">
-            <span class="total-stats">$1197.9</span>
+            <span class="total-stats">${{overview_pnl.total_net_pnl}}</span>
         </div>
         <div class="stats-item">
-            <span class="total-stats">43</span>
+            <span class="total-stats">{{overview_pnl.number_of_trades}}</span>
         </div>
     </div>
 
@@ -124,20 +122,7 @@
 </html>
 
 
-<!-- <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    {% if form.errors %}
-    <div style="color: red;">
-        {{ form.errors }}
-    </div>
-    {% endif %}
-
-    <input type="submit" value="Submit">
-</form>
-
-<ul>
+<!-- <ul>
     {% for key, value in overview_pnl.items %}
     <li>
         <h3>{{ key }}: {{ value }}</h3>
