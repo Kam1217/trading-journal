@@ -338,3 +338,72 @@ body {
     font-weight: 600;
     margin: 0;
 }
+
+.calendar-container {
+    position: fixed;
+    top: 380px;
+    left: 220px;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    /* backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); */
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 5px;
+    height: 200px;
+}
+
+.calendar-square {
+    background-color: rgba(0, 0, 0, 0.75);
+    border: 1px solid #98B4B7;
+    border-radius: 6px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.day-number {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+
+}
+
+.daily-net-pnl {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.daily-details {
+    text-align: center;
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px
+}
+
+.daily-fee,
+.daily-num-of-trades {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    margin: 1px 0;
+}
