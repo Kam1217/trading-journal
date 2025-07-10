@@ -23,9 +23,6 @@
 
         <form method="POST" enctype="multipart/form-data" class="upload-form">
             {% csrf_token %}
-            <label for="{{ form.csv_file.id_for_label }}" class="file-input-label">
-                Choose File
-            </label>
             {{ form.as_p }}
             <button type="submit" class="upload-button">UPLOAD</button>
 

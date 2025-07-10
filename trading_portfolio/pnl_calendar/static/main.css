@@ -144,23 +144,28 @@ body {
 }
 
 .file-input {
-    display: none;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    border-radius: 6px;
+    padding: 2px 6px;
+    max-width: 220px;
+
 }
 
-.file-input-label {
+.file-input::file-selector-button {
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
+    border: 1px solid #98B4B7;
     padding: 6px 14px;
     border-radius: 6px;
     font-size: 16px;
-    font-weight: 500;
-    font-family: 'Quicksand', sans-serif;
-    border: 1px solid #98B4B7;
     cursor: pointer;
-    transition: background-color 0.3s;
+    margin-right: 10px;
+    font-family: 'Quicksand', sans-serif;
 }
 
-.file-input-label:hover {
+.file-input::file-selector-button:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
