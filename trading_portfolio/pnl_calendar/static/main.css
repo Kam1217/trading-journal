@@ -144,13 +144,19 @@ body {
 }
 
 .file-input {
-    color: white;
+    color: transparent;
     font-family: 'Quicksand', sans-serif;
     font-size: 12px;
     border-radius: 6px;
     padding: 2px 6px;
-    max-width: 220px;
+    width: 120px;
+    transition: width 0.3s ease;
 
+}
+
+.file-input:valid {
+    color: white;
+    width: 200px;
 }
 
 .file-input::file-selector-button {
