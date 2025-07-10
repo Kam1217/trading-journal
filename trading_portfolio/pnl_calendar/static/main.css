@@ -152,7 +152,7 @@ body {
     top: 60px;
     left: 220px;
     right: 0;
-    height: 80px;
+    height: 70px;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -182,10 +182,10 @@ body {
 
 .total-stats-overview-container {
     position: fixed;
-    top: 141px;
+    top: 131px;
     left: 220px;
     right: 0;
-    height: 140px;
+    height: 120px;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -215,10 +215,10 @@ body {
 
 .pnl-calendar-header-container {
     position: fixed;
-    top: 282px;
+    top: 252px;
     left: 220px;
     right: 0;
-    height: 80px;
+    height: 60px;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -226,7 +226,43 @@ body {
     z-index: 998;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    padding: 0 30px;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.calendar-header .material-symbols-outlined {
+    color: white;
+    font-size: 24px;
+}
+
+.calendar-title {
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.month-days-container {
+    position: fixed;
+    top: 330px;
+    left: 220px;
+    right: 0;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid #98B4B7;
+    border-top: 1px solid #98B4B7;
+    z-index: 998;
+    display: flex;
+    align-items: center;
     justify-content: space-evenly;
     padding: 0 10px;
 }
-
