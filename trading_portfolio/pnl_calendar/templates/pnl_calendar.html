@@ -46,16 +46,16 @@
     <!-- Total overview stats -->
     <div class="total-stats-overview-container">
         <div class="stats-item">
-            <span class="total-stats">${{overview_pnl.total_gross_pnl }}</span>
+            <span class="total-stats">${{overview_pnl.total_gross_pnl|floatformat:2 }}</span>
         </div>
         <div class="stats-item">
-            <span class="total-stats">${{overview_pnl.total_fee}}</span>
+            <span class="total-stats">${{overview_pnl.total_fee|floatformat:2}}</span>
         </div>
         <div class="stats-item">
-            <span class="total-stats">${{overview_pnl.total_net_pnl}}</span>
+            <span class="total-stats">${{overview_pnl.total_net_pnl|floatformat:2}}</span>
         </div>
         <div class="stats-item">
-            <span class="total-stats">{{overview_pnl.number_of_trades}}</span>
+            <span class="total-stats">{{overview_pnl.number_of_trades|floatformat:2}}</span>
         </div>
     </div>
 
