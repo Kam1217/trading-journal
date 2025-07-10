@@ -9,7 +9,11 @@ class MultipleFileInput(forms.ClearableFileInput):
 
 class MultipleFileField(forms.FileField):
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault("widget", MultipleFileInput())
+        kwargs.setdefault("widget", MultipleFileInput(attrs={
+            'accept': '.csv',
+            'class': 'file-input',
+            'id': 'csv-file-input'
+        }))
         super().__init__(*args, **kwargs)
 
     def clean(self, data, initial=None):
@@ -31,7 +35,7 @@ class MultipleFileField(forms.FileField):
         return file
 
 class UploadForm(forms.Form):
-    csv_file = MultipleFileField()
+    csv_file = MultipleFileField(label="")
 
 
     

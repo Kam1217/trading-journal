@@ -135,6 +135,35 @@ body {
     margin: 0;
 }
 
+.upload-form {
+    color: white;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-input-label {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Quicksand', sans-serif;
+    border: 1px solid #98B4B7;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.file-input-label:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 .upload-button {
     background-color: #00AAB7;
     color: white;
@@ -145,6 +174,10 @@ body {
     font-family: 'Quicksand', sans-serif;
     border: none;
     cursor: pointer;
+}
+
+.upload-button:hover {
+    background-color: #008a94;
 }
 
 .total-headers-stats-container {
