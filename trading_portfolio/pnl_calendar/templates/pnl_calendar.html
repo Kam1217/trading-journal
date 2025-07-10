@@ -46,13 +46,27 @@
     <!-- Total overview stats -->
     <div class="total-stats-overview-container">
         <div class="stats-item">
-            <span class="total-stats">${{overview_pnl.total_gross_pnl|floatformat:2 }}</span>
+            <span class="total-stats">
+                ${{overview_pnl.total_gross_pnl|floatformat:2 }}
+                {%if overview_pnl.total_gross_pnl > 0%}
+                <span class="material-symbols-outlined pnl-positive">keyboard_arrow_up</span>
+                {%else%}
+                <span class="material-symbols-outlined pnl-negative">keyboard_arrow_down</span>
+                {% endif %}
+            </span>
         </div>
         <div class="stats-item">
             <span class="total-stats">${{overview_pnl.total_fee|floatformat:2}}</span>
         </div>
         <div class="stats-item">
-            <span class="total-stats">${{overview_pnl.total_net_pnl|floatformat:2}}</span>
+            <span class="total-stats">
+                ${{overview_pnl.total_net_pnl|floatformat:2}}
+                {%if overview_pnl.total_net_pnl > 0%}
+                <span class="material-symbols-outlined pnl-positive">keyboard_arrow_up</span>
+                {%else%}
+                <span class="material-symbols-outlined pnl-negative">keyboard_arrow_down</span>
+                {% endif %}
+            </span>
         </div>
         <div class="stats-item">
             <span class="total-stats">{{overview_pnl.number_of_trades}}</span>
