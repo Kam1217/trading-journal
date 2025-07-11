@@ -4,6 +4,7 @@ from .forms import UploadForm
 from .handle_csv_upload import handle_upload_csv
 from .pnl_calculations import calendar_daily_pnl, overview_pnl, calendar_weekly_pnl
 from .generate_calendar import generate_calendar
+from django.contrib import messages
 
 # Create your views here.
 
@@ -11,8 +12,26 @@ def pnl_calendar(request):
     if request.POST:
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_upload_csv(request.FILES["csv_file"])
+            csv_files = form.cleaned_data["csv_file"]
+            processed_count = 0
+
+            for csv_file in csv_files: 
+                try:
+                    handle_upload_csv(csv_file)
+                    processed_count += 1
+                except ValueError as e:
+                    messages.error(request, f"Error in {csv_file.name}: {str(e)}")
+                except Exception as e:
+                    messages.error(request, f"Unexpected error in {csv_file.name}: {str(e)}")
+            
+            if processed_count > 0:
+                messages.success(request, f"Successfully processed {processed_count} CSV file(s)!")
+            
             return redirect("pnl_calendar")
+        else:
+            for field, errors in form.errors.items():
+                 for error in errors:
+                     messages.error(request, error)
     else:
         form = UploadForm()
 
