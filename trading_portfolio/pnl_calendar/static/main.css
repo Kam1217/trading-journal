@@ -451,7 +451,7 @@ body {
 }
 
 .day-number,
-.week-number {
+.week-title {
     position: absolute;
     top: 15px;
     right: 15px;

@@ -131,7 +131,42 @@
     <!-- Calendar - Day-->
     <div class="calendar-container">
         <div class="calendar-grid">
-            <!-- Calendar -->
+            {% for week in calendar_weeks %}
+            {%for day in week %}
+            {% if day.is_week_summary %}
+            <div class="calendar-square">
+                <div class="week-title">Week: {{day.week_number}}</div>
+                <div
+                    class="weekly-net-pnl {% if day.net_pnl > 0 %}positive{% elif day.net_pnl < 0 %}negative{% endif %}">
+                    ${{ day.net_pnl|floatformat:2 }}
+                </div>
+                <div class="weekly-details">
+                    <div class="weekly-fee">Fees: ${{day.fees|floatformat:2}}</div>
+                    <div class="weekly-num-of-trades">{{day.trade_count}} Trades</div>
+                </div>
+            </div>
+
+            {%elif dat.is_empty %}
+            <div class="calendar-square empty-day"></div>
+
+            {%else%}
+            <div class="calendar-square {% if day.has_trades %}has-data{% else %}no-data{% endif %}">
+                <div class="day-number">{{ day.day }}</div>
+                {%if day.has_trades%}
+                <div
+                    class="daily-net-pnl {% if day.net_pnl > 0 %}positive{% elif day.net_pnl < 0 %}negative{% endif %}">
+                    ${{ day.net_pnl|floatformat:2 }}
+                </div>
+                <div class="daily-details">
+                    <div class="daily-fee">Fees: ${{ day.fees|floatformat:2 }}</div>
+                    <div class="daily-num-of-trades">{{ day.trade_count }} trades</div>
+                </div>
+                {%endif%}
+            </div>
+
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
         </div>
     </div>
 
