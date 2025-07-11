@@ -136,8 +136,7 @@
             {% if day.is_week_summary %}
             <div class="calendar-square">
                 <div class="week-title">Week: {{day.week_number}}</div>
-                <div
-                    class="weekly-net-pnl {% if day.net_pnl > 0 %}positive{% elif day.net_pnl < 0 %}negative{% endif %}">
+                <div class="weekly-net-pnl {{day.pnl_type}}">
                     ${{ day.net_pnl|floatformat:2 }}
                 </div>
                 <div class="weekly-details">
