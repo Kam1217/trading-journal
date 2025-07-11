@@ -343,12 +343,39 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+.month-nav-btn .material-symbols-outlined {
+    font-size: 26px;
+}
+
 .month-title {
     color: white;
     font-weight: bold;
     margin: 0;
     min-width: 120px;
     text-align: center;
+}
+
+.settings-and-info {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-width: 24px;
+    min-height: 24px;
+    border: 1px solid transparent;
+}
+
+.settings-and-info:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.settings-and-info .material-symbols-outlined {
+    font-weight: 300;
 }
 
 .month-days-container {
