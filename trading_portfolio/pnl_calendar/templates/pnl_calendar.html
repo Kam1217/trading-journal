@@ -135,7 +135,7 @@
             {%for day in week %}
             {% if day.is_week_summary %}
             <div class="calendar-square">
-                <div class="week-title">Week: {{day.week_number}}</div>
+                <div class="week-title">Week {{day.week_number}}</div>
                 <div class="weekly-net-pnl {{day.pnl_type}}">
                     ${{ day.net_pnl|floatformat:2 }}
                     {% if day.net_pnl > 0 %}
