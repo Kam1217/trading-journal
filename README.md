@@ -27,6 +27,13 @@ A Django-based web application for tracking and analyzing trading performance wi
 <img width="283" height="53" alt="image" src="https://github.com/user-attachments/assets/653f167a-6c5e-4517-9630-c0750be9b6ae" />
 <img width="768" height="144" alt="image" src="https://github.com/user-attachments/assets/cff14100-1d5b-44dd-b1ed-68e95428bc0c" />
 
+### ‼️Error handling
+- **User-friendly Error Messages**: Clear explanations of validation failures
+- **File-specific Errors**: Shows which file caused each error
+- **Data Type Validation**: Validates numeric and date formats
+- **Empty Value Detection**: Prevents processing of incomplete data
+<img width="962" height="58" alt="image" src="https://github.com/user-attachments/assets/84b1c55f-eb27-4f74-8652-dace2fb51d45" />
+
 ### 🎨 Modern UI/UX
 - **Custom made design**: Professional logo, background image and UI/UX design
 - **Dark Theme**: Professional dark interface with blur effects
@@ -35,13 +42,6 @@ A Django-based web application for tracking and analyzing trading performance wi
 <img width="197" height="201" alt="image" src="https://github.com/user-attachments/assets/5e4d7bde-c4a0-4ba2-aff9-2ec3be9b2048" />
 <img width="1296" height="642" alt="image" src="https://github.com/user-attachments/assets/56280e82-cb00-4206-9fb9-05d4af0904a5" />
 <img width="591" height="442" alt="image" src="https://github.com/user-attachments/assets/4c8c1e3b-4799-41fe-9c12-f43182a8b0bd" />
-
-### ‼️Error handling
-- **User-friendly Error Messages**: Clear explanations of validation failures
-- **File-specific Errors**: Shows which file caused each error
-- **Data Type Validation**: Validates numeric and date formats
-- **Empty Value Detection**: Prevents processing of incomplete data
-<img width="962" height="58" alt="image" src="https://github.com/user-attachments/assets/84b1c55f-eb27-4f74-8652-dace2fb51d45" />
 
 ## Technology Stack
 - **Backend**: Django 4.x
