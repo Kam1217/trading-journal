@@ -13,20 +13,15 @@ def pnl_calendar(request):
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
             csv_files = form.cleaned_data["csv_file"]
-            processed_count = 0
 
             for csv_file in csv_files: 
                 try:
                     handle_upload_csv(csv_file)
-                    processed_count += 1
                 except ValueError as e:
                     messages.error(request, f"Error in {csv_file.name}: {str(e)}")
                 except Exception as e:
                     messages.error(request, f"Unexpected error in {csv_file.name}: {str(e)}")
-            
-            if processed_count > 0:
-                messages.success(request, f"Successfully processed {processed_count} CSV file(s)!")
-            
+                
             return redirect("pnl_calendar")
         else:
             for field, errors in form.errors.items():
