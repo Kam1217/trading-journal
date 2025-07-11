@@ -63,6 +63,7 @@ def generate_calendar(daily_data, weekly_data, year, month):
         
         week_data.append({
             "is_week_summary": True,
+            "week_number" : week_index + 1,
             "net_pnl": week_totals["net_pnl"],
             "fees": week_totals["fees"],
             "trade_count": week_totals["trades"],
