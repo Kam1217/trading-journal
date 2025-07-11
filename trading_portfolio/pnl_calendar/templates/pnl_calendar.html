@@ -138,6 +138,11 @@
                 <div class="week-title">Week: {{day.week_number}}</div>
                 <div class="weekly-net-pnl {{day.pnl_type}}">
                     ${{ day.net_pnl|floatformat:2 }}
+                    {% if day.net_pnl > 0 %}
+                    <span class="material-symbols-outlined pnl-positive">keyboard_arrow_up</span>
+                    {% elif day.net_pnl < 0 %} <span class="material-symbols-outlined pnl-negative">
+                        keyboard_arrow_down</span>
+                        {% endif %}
                 </div>
                 <div class="weekly-details">
                     <div class="weekly-fee">Fees: ${{day.fees|floatformat:2}}</div>
@@ -154,6 +159,11 @@
                 {%if day.has_trades%}
                 <div class="daily-net-pnl {{day.pnl_type}}">
                     ${{ day.net_pnl|floatformat:2 }}
+                    {% if day.net_pnl > 0 %}
+                    <span class="material-symbols-outlined pnl-positive">keyboard_arrow_up</span>
+                    {% elif day.net_pnl < 0 %} <span class="material-symbols-outlined pnl-negative">
+                        keyboard_arrow_down</span>
+                        {% endif %}
                 </div>
                 <div class="daily-details">
                     <div class="daily-fee">Fees: ${{ day.fees|floatformat:2 }}</div>

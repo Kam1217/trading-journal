@@ -491,3 +491,17 @@ body {
     font-size: 14px;
     margin: 1px 0;
 }
+
+.daily-net-pnl .material-symbols-outlined.pnl-positive,
+.weekly-net-pnl .material-symbols-outlined.pnl-positive {
+    color: #51FF00;
+    font-size: 32px;
+    vertical-align: middle;
+}
+
+.daily-net-pnl .material-symbols-outlined.pnl-negative,
+.weekly-net-pnl .material-symbols-outlined.pnl-negative {
+    color: #ff0000;
+    font-size: 32px;
+    vertical-align: middle;
+}
