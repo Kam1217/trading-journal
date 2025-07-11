@@ -135,21 +135,18 @@ body {
     margin: 0;
 }
 
-.messages-container {
-    position: fixed;
-    top: 70px;
-    left: 220px;
-    right: 20px;
-    z-index: 1002;
-    padding: 0;
+
+.form-container {
+    display: flex;
+    flex-direction: row;
 }
 
 .alert {
     padding: 12px 15px;
+    text-align: center;
     border-radius: 6px;
-    margin-bottom: 10px;
     font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;

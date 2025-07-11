@@ -20,22 +20,22 @@
 <body>
     <header class="top-bar">
         <h1 class="page-title">Overview</h1>
-
-        {% if messages %}
-        <div class="messages-container">
+        <div class="form-container">
+            {% if messages %}
             {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
                 {{ message }}
             </div>
             {% endfor %}
-        </div>
-        {% endif %}
+            {% endif %}
 
-        <form method="POST" enctype="multipart/form-data" class="upload-form">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="upload-button">UPLOAD</button>
-        </form>
+            <form method="POST" enctype="multipart/form-data" class="upload-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="upload-button">UPLOAD</button>
+            </form>
+        </div>
+
     </header>
 
     <div class="total-headers-stats-container">
