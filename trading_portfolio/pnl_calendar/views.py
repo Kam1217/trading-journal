@@ -51,6 +51,9 @@ def pnl_calendar(request):
         "calendar_weekly_pnl" : calendar_weekly_pnl(),
         "calendar_weeks": calendar_weeks,
         "current_month": today.strftime('%B %Y'),
+        "previous_month" : previous_month,
+        "next_month": next_month,
+        "current-date": current_date,
     }
 
     return render(request,"pnl_calendar.html", context)  
