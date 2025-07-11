@@ -153,8 +153,7 @@
             <div class="calendar-square {% if day.has_trades %}has-data{% else %}no-data{% endif %}">
                 <div class="day-number">{{ day.day }}</div>
                 {%if day.has_trades%}
-                <div
-                    class="daily-net-pnl {% if day.net_pnl > 0 %}positive{% elif day.net_pnl < 0 %}negative{% endif %}">
+                <div class="daily-net-pnl {{day.pnl_type}}">
                     ${{ day.net_pnl|floatformat:2 }}
                 </div>
                 <div class="daily-details">

@@ -14,7 +14,15 @@ def generate_calendar(daily_data, weekly_data, year, month):
                 "fees": float(day_data["total_fee"]) if day_data["total_fee"] else 0,
                 "trade_count": day_data["number_of_trades"],
             }
-    
+
+    def get_pnl_type(net_pnl):
+        if net_pnl > 0:
+            return "positive"
+        elif net_pnl < 0:
+            return "negative"
+        else:
+            return "neutral"
+   
     weekly_dict = {}
     for week_data in weekly_data:
         week_start = week_data["week"]  
@@ -52,7 +60,8 @@ def generate_calendar(daily_data, weekly_data, year, month):
                     "fees": trade_data["fees"],
                     "trade_count": trade_data["trade_count"],
                     'has_trades': trade_data["trade_count"] > 0,
-                    "is_empty": False
+                    "is_empty": False,
+                    "pnl_type": get_pnl_type(trade_data['net_pnl'])
                 }
                 
                 week_totals["net_pnl"] += trade_data["net_pnl"]
