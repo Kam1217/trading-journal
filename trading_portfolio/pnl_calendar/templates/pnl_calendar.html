@@ -82,13 +82,15 @@
 
         <!-- Month navigation -->
         <div class="month-navigation">
-            <a href="?month={{ prev_month.month }}&year={{ prev_month.year }}" class="month-nav-btn">
-                <span class="material-symbols-outlined">keyboard_arrow_left</span>
-            </a>
-            <span>{{current_month}}</span>
-            <a href="?month={{ next_month.month }}&year={{ next_month.year }}" class="month-nav-btn">
-                <spna class="material-symbols-outlined">navigate_next</spna>
-            </a>
+            <div class="month-navigation-button">
+                <a href="?month={{ prev_month.month }}&year={{ prev_month.year }}" class="month-nav-btn">
+                    <span class="material-symbols-outlined">keyboard_arrow_left</span>
+                </a>
+                <span class="month-title">{{current_month}}</span>
+                <a href="?month={{ next_month.month }}&year={{ next_month.year }}" class="month-nav-btn">
+                    <span class="material-symbols-outlined">navigate_next</span>
+                </a>
+            </div>
         </div>
     </div>
 

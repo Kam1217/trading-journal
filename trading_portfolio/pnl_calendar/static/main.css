@@ -305,6 +305,52 @@ body {
     margin: 0;
 }
 
+.month-navigation {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    justify-content: flex-end;
+    margin-left: 60px;/
+}
+
+.month-navigation-button {
+    background-color: #333333;
+    padding: 1px 7px;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-right: 10px;
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.month-nav-btn {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+    min-width: 28px;
+    min-height: 28px;
+}
+
+.month-nav-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.month-title {
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    min-width: 120px;
+    text-align: center;
+}
+
 .month-days-container {
     position: fixed;
     top: 330px;
