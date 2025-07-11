@@ -115,7 +115,7 @@ body {
     top: 0;
     left: 221px;
     right: 0;
-    height: 70px;
+    height: 60px;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -196,7 +196,7 @@ body {
     top: 60px;
     left: 220px;
     right: 0;
-    height: 70px;
+    height: 50px;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -226,10 +226,10 @@ body {
 
 .total-stats-overview-container {
     position: fixed;
-    top: 131px;
+    top: 111px;
     left: 220px;
     right: 0;
-    height: 120px;
+    height: 90px;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -271,7 +271,7 @@ body {
 
 .pnl-calendar-header-container {
     position: fixed;
-    top: 252px;
+    top: 202px;
     left: 220px;
     right: 0;
     height: 60px;
@@ -380,7 +380,7 @@ body {
 
 .month-days-container {
     position: fixed;
-    top: 330px;
+    top: 263px;
     left: 220px;
     right: 0;
     height: 50px;
@@ -388,7 +388,6 @@ body {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid #98B4B7;
-    border-top: 1px solid #98B4B7;
     z-index: 998;
     display: flex;
     align-items: center;
@@ -414,7 +413,7 @@ body {
 
 .calendar-container {
     position: fixed;
-    top: 380px;
+    top: 300px;
     left: 220px;
     right: 0;
     bottom: 0;
