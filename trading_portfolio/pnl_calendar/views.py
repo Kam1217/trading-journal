@@ -16,10 +16,27 @@ def pnl_calendar(request):
     else:
         form = UploadForm()
 
+    #Get date 
     today = date.today()
-    year = today.year
-    month = today.month
+    year = int(request.GET.get("year", today.year))
+    month = int(request.GET.get("month", today.month))
+
+    current_date = date(year, month, 1)
+
+    #Calculate previous dates
+    #Previous year if month is Jauary
+    if month == 1:
+        previous_month = {"month": 12, "year": year - 1}
+    else:
+        previous_month = {"month": month - 1, "year": year}
     
+    #Next yaer is month is December
+    if month == 12:
+        next_month = {"month": 1, "year": year + 1}
+    else:
+        next_month = {"month": month + 1, "year": year}
+    
+    #Generate calendar
     calendar_weeks = generate_calendar(
         calendar_daily_pnl(), 
         calendar_weekly_pnl(), 
