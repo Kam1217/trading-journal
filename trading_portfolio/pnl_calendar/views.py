@@ -18,8 +18,24 @@ def pnl_calendar(request):
 
     #Get date 
     today = date.today()
-    year = int(request.GET.get("year", today.year))
-    month = int(request.GET.get("month", today.month))
+
+    try:
+        year_param = request.GET.get("year", "").strip()
+        year = int(year_param) if year_param else today.year
+    except (ValueError, TypeError):
+        year = today.year
+    
+    try:
+        month_param = request.GET.get("month", "").strip()
+        month = int(month_param) if month_param else today.month
+    except (ValueError, TypeError):
+        month = today.month
+
+    if not (1 <= month <= 12):
+        month = today.month
+    
+    if not (1900 <= year <= 2100): 
+        year = today.year
 
     current_date = date(year, month, 1)
 
@@ -30,7 +46,7 @@ def pnl_calendar(request):
     else:
         previous_month = {"month": month - 1, "year": year}
     
-    #Next yaer is month is December
+    #Next year if month is December
     if month == 12:
         next_month = {"month": 1, "year": year + 1}
     else:
